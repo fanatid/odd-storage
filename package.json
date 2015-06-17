@@ -33,19 +33,20 @@
   "scripts": {
     "compile": "browserify -e index.js -s oddStorage -o odd-storage.js -g [ uglifyify --no-sourcemap ]",
     "compile:debug": "browserify -e index.js -s oddStorage -o odd-storage.js -d",
-    "compile:test": "browserify -o odd-storage.test.js test/*.js",
-    "coverage": "istanbul cover _mocha -- test/*.js",
+    "compile:test": "find test/ -type f -name \"*.js\" | xargs browserify -o odd-storage.test.js",
+    "coverage": "find test/ -type f -name \"*.js\" | xargs istanbul cover _mocha --",
     "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
     "clean": "rm -f odd-storage.js odd-storage.test.js",
     "karma": "./node_modules/karma/bin/karma start karma.conf.js",
     "lint": "standard",
     "test": "npm run test:node && npm run test:browser",
-    "test:node": "istanbul test mocha -- --reporter spec test/*.js",
+    "test:node": "find test/ -type f -name \"*.js\" | xargs istanbul test mocha -- --reporter spec",
     "test:browser": "npm run compile:test && npm run karma"
   },
   "dependencies": {
     "error-system": "^0.1.0",
     "inherits": "^2.0.1",
+    "lodash.assign": "^3.2.0",
     "make-concurrent": "0.0.4",
     "ready-mixin": "0.0.5"
   },
