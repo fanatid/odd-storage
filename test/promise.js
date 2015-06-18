@@ -3,5 +3,5 @@ module.exports = (function () {
     return global.Promise
   }
 
-  return require('bluebird')
+  return require('es6-promise').Promise
 })()
