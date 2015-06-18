@@ -48,7 +48,9 @@
     "inherits": "^2.0.1",
     "lodash.assign": "^3.2.0",
     "make-concurrent": "0.0.4",
-    "ready-mixin": "0.0.5"
+    "pg": "^4.4.0",
+    "ready-mixin": "0.0.5",
+    "sqlite3": "^3.0.8"
   },
   "devDependencies": {
     "browserify": "^10.2.4",

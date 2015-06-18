@@ -4,20 +4,20 @@ var expect = require('chai').expect
 var Promise = require('../promise')
 var oddStorage = require('../../')(Promise)
 
-describe('AbstractSql', function () {
+describe('AbstractSQL', function () {
   var storage
 
   beforeEach(function () {
-    storage = new oddStorage.AbstractSql()
+    storage = new oddStorage.AbstractSQL()
   })
 
   it('inherits Abstract', function () {
-    expect(storage).to.be.instanceof(oddStorage.AbstractSql)
+    expect(storage).to.be.instanceof(oddStorage.AbstractSQL)
     expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
-  it('#executeSql', function (done) {
-    storage.executeSql()
+  it('#executeSQL', function (done) {
+    storage.executeSQL()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)

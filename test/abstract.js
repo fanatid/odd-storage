@@ -57,13 +57,4 @@ describe('Abstract', function () {
       })
     })
   })
-
-  it('#clear', function (done) {
-    storage.clear()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
-  })
 })
