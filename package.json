@@ -1,7 +1,7 @@
 {
   "name": "odd-storage",
   "version": "0.0.1",
-  "description": "Desktop and browser storage",
+  "description": "node.js and browser storage",
   "keywords": [
     "storage",
     "memory",
