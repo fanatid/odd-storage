@@ -5,19 +5,19 @@ var Promise = require('../promise')
 var oddStorage = require('../../')(Promise)
 
 describe('AbstractSync', function () {
-  var astorage
+  var storage
 
   beforeEach(function () {
-    astorage = new oddStorage.AbstractSync()
+    storage = new oddStorage.AbstractSync()
   })
 
   it('inherits Abstract', function () {
-    expect(astorage).to.be.instanceof(oddStorage.AbstractSync)
-    expect(astorage).to.be.instanceof(oddStorage.Abstract)
+    expect(storage).to.be.instanceof(oddStorage.AbstractSync)
+    expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
   it('#set', function (done) {
-    astorage.set()
+    storage.set()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
@@ -26,7 +26,7 @@ describe('AbstractSync', function () {
   })
 
   it('#get', function (done) {
-    astorage.get()
+    storage.get()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
@@ -35,7 +35,7 @@ describe('AbstractSync', function () {
   })
 
   it('#remove', function (done) {
-    astorage.remove()
+    storage.remove()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
@@ -44,7 +44,7 @@ describe('AbstractSync', function () {
   })
 
   it('#iterate', function (done) {
-    astorage.iterate()
+    storage.iterate()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)

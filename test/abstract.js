@@ -5,10 +5,10 @@ var Promise = require('./promise')
 var oddStorage = require('../')(Promise)
 
 describe('Abstract', function () {
-  var astorage
+  var storage
 
   beforeEach(function () {
-    astorage = new oddStorage.Abstract()
+    storage = new oddStorage.Abstract()
   })
 
   it('isAvailable return false', function () {
@@ -16,11 +16,11 @@ describe('Abstract', function () {
   })
 
   it('#isReady', function () {
-    expect(astorage.isReady()).to.be.false
+    expect(storage.isReady()).to.be.false
   })
 
   it('#open', function (done) {
-    astorage.open()
+    storage.open()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
@@ -29,7 +29,7 @@ describe('Abstract', function () {
   })
 
   it('#_isOpenedCheckPromise', function (done) {
-    astorage._isOpenedCheckPromise()
+    storage._isOpenedCheckPromise()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.UnopenedYet)
@@ -37,8 +37,29 @@ describe('Abstract', function () {
       })
   })
 
+  it('#withLock', function (done) {
+    storage._ready()
+    storage.ready.then(function () {
+      var flag = false
+
+      storage.withLock(function () {
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            flag = true
+            resolve()
+          }, 50)
+        })
+      })
+
+      storage.withLock(function () {
+        expect(flag).to.be.true
+        done()
+      })
+    })
+  })
+
   it('#clear', function (done) {
-    astorage.clear()
+    storage.clear()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)

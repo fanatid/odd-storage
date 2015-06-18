@@ -5,19 +5,19 @@ var Promise = require('../promise')
 var oddStorage = require('../../')(Promise)
 
 describe('AbstractSql', function () {
-  var astorage
+  var storage
 
   beforeEach(function () {
-    astorage = new oddStorage.AbstractSql()
+    storage = new oddStorage.AbstractSql()
   })
 
   it('inherits Abstract', function () {
-    expect(astorage).to.be.instanceof(oddStorage.AbstractSql)
-    expect(astorage).to.be.instanceof(oddStorage.Abstract)
+    expect(storage).to.be.instanceof(oddStorage.AbstractSql)
+    expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
   it('#executeSql', function (done) {
-    astorage.executeSql()
+    storage.executeSql()
       .then(function () { throw new Error() })
       .catch(function (err) {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)

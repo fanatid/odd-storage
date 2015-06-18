@@ -14,5 +14,12 @@ module.exports = require('./lib/wrapper')(function (Promise) {
   oddStorage.AbstractSql = require('./lib/sql/abstract')(Promise)
   oddStorage.AbstractSync = require('./lib/sync/abstract')(Promise)
 
+  // sql
+
+  // sync
+  oddStorage.Memory = require('./lib/sync/memory')(Promise)
+  oddStorage.IndexedDB = require('./lib/sync/indexeddb')(Promise)
+  oddStorage.LocalStorage = require('./lib/sync/localstorage')(Promise)
+
   return oddStorage
 })
