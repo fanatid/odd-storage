@@ -1,4 +1,4 @@
-# odd-storage <sup>[![version](http://vb.teelaun.ch/fanatid/odd-storage.svg)](https://www.npmjs.org/package/odd-storage/)</sup>
+# odd-storage
 
 [![build status](https://img.shields.io/travis/fanatid/odd-storage.svg?branch=master&style=flat-square)](http://travis-ci.org/fanatid/odd-storage)
 [![Coverage Status](https://img.shields.io/coveralls/fanatid/odd-storage.svg?style=flat-square)](https://coveralls.io/r/fanatid/odd-storage)
@@ -8,13 +8,12 @@
 [![NPM](https://nodei.co/npm/odd-storage.png)](https://www.npmjs.com/package/odd-storage)
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-odd-storage is JavaScript library that has two interfaces ([sql](#abstractsql) and [sync](#abstractsync)) for store data in node.js and browsers. odd-storage uses [promises](https://promisesaplus.com/) but doesn't have hard dependencies on the specific library.
+odd-storage is JavaScript library that has two interfaces ([sql](#abstractsql) and [sync](#abstractsync)) for store data in node.js and browsers.
 
 ## Example
 
 ```js
-var MyPromise = ...
-var oddStorage = require('odd-storage')(MyPromise)
+var oddStorage = require('odd-storage')
 var storage = new oddStorage.LocalStorage({prefix: '...'})
 
 $('#change-balance-btn').click(function () {
