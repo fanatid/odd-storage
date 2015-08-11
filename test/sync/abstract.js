@@ -1,61 +1,59 @@
-/* global describe, beforeEach, it */
-var expect = require('chai').expect
+import { expect } from 'chai'
 
-var Promise = require('../promise')
-var oddStorage = require('../../')(Promise)
+import * as oddStorage from '../../src'
 
-describe('AbstractSync', function () {
+describe('AbstractSync', () => {
   var storage
 
-  beforeEach(function () {
+  beforeEach(() => {
     storage = new oddStorage.AbstractSync()
   })
 
-  it('inherits Abstract', function () {
+  it('inherits Abstract', () => {
     expect(storage).to.be.instanceof(oddStorage.AbstractSync)
     expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
-  it('#set', function (done) {
+  it('#set', (done) => {
     storage.set()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })
   })
 
-  it('#get', function (done) {
+  it('#get', (done) => {
     storage.get()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })
   })
 
-  it('#remove', function (done) {
+  it('#remove', (done) => {
     storage.remove()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })
   })
 
-  it('#iterate', function (done) {
+  it('#iterate', (done) => {
     storage.iterate()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })
   })
 
-  it('#clear', function (done) {
+  it('#clear', (done) => {
     storage.clear()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })

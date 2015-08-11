@@ -1,8 +1,6 @@
-/* global describe, xdescribe, beforeEach, it */
-var expect = require('chai').expect
+import { expect } from 'chai'
 
-var Promise = require('../promise')
-var oddStorage = require('../../')(Promise)
+import * as oddStorage from '../../src'
 
 var SQL = {}
 
@@ -26,45 +24,44 @@ SQL['PostgreSQL'] = {
   drop: 'DROP TABLE tmp;'
 }
 
-module.exports = function (opts) {
-  var StorageCls = oddStorage[opts.clsName]
+export default function (opts) {
+  let StorageCls = oddStorage[opts.clsName]
   if (StorageCls === undefined) {
     return
   }
 
-  var ndescribe = opts.describe || describe
+  let ndescribe = opts.describe || describe
   if (StorageCls.isAvailable() === false) {
     ndescribe = xdescribe
   }
 
-  ndescribe(opts.clsName, function () {
-    var storage
-    var sql = SQL[opts.clsName]
+  ndescribe(opts.clsName, () => {
+    let storage
+    let sql = SQL[opts.clsName]
 
-    beforeEach(function (done) {
+    beforeEach((done) => {
       storage = new StorageCls(opts.storageOpts)
       storage.open().then(done, done)
     })
 
-    it('inherits AbstractSQL', function () {
+    it('inherits AbstractSQL', () => {
       expect(storage).to.be.instanceof(oddStorage.AbstractSQL)
     })
 
-    it('#executeSQL', function (done) {
-      storage.executeSQL(sql.create)
-        .then(function () {
-          return storage.executeSQL(sql.insert, ['test', 1])
-        })
-        .then(function () {
-          return storage.executeSQL(sql.select, ['test'])
-        })
-        .then(function (rows) {
+    it('#executeSQL', (done) => {
+      Promise.resolve()
+        .then(async () => {
+          await storage.executeSQL(sql.create)
+          await storage.executeSQL(sql.insert, ['test', 1])
+
+          let rows = await storage.executeSQL(sql.select, ['test'])
           expect(rows).to.be.an('Array').and.to.have.length(1)
           expect(rows[0]).to.have.property('key', 'test')
           expect(rows[0]).to.have.property('val', 1)
-          return storage.executeSQL(sql.drop)
+
+          await storage.executeSQL(sql.drop)
         })
-        .then(function () { done() }, done)
+        .then(done, done)
     })
   })
 }

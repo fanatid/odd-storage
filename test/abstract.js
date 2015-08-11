@@ -1,57 +1,48 @@
-/* global describe, beforeEach, it */
-var expect = require('chai').expect
+import { expect } from 'chai'
 
-var Promise = require('./promise')
-var oddStorage = require('../')(Promise)
+import * as oddStorage from '../src'
 
-describe('Abstract', function () {
+describe('Abstract', () => {
   var storage
 
-  beforeEach(function () {
+  beforeEach(() => {
     storage = new oddStorage.Abstract()
   })
 
-  it('isAvailable return false', function () {
+  it('isAvailable return false', () => {
     expect(oddStorage.Abstract.isAvailable()).to.be.false
   })
 
-  it('#isReady', function () {
+  it('#isReady', () => {
     expect(storage.isReady()).to.be.false
   })
 
-  it('#open', function (done) {
+  it('#open', (done) => {
     storage.open()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
+      .then(() => { throw new Error() })
+      .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
         done()
       })
   })
 
-  it('#_isOpenedCheckPromise', function (done) {
-    storage._isOpenedCheckPromise()
-      .then(function () { throw new Error() })
-      .catch(function (err) {
-        expect(err).to.be.instanceof(oddStorage.errors.UnopenedYet)
-        done()
-      })
+  it('#_isOpenedCheck', () => {
+    expect(::storage._isOpenedCheck).to.throw(oddStorage.errors.UnopenedYet)
   })
 
-  it('#withLock', function (done) {
+  it('#withLock', (done) => {
     storage._ready()
-    storage.ready.then(function () {
+    storage.ready.then(() => {
       var flag = false
 
-      storage.withLock(function () {
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            flag = true
-            resolve()
-          }, 50)
+      storage.withLock(() => {
+        return new Promise((resolve) => {
+          setTimeout(resolve, 50)
         })
+        .then(() => { flag = true })
       })
 
-      storage.withLock(function () {
+      storage.withLock(() => {
         expect(flag).to.be.true
         done()
       })

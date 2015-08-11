@@ -1,107 +1,97 @@
-/* global describe, xdescribe, beforeEach, afterEach, it */
-var expect = require('chai').expect
+import { expect } from 'chai'
 
-var Promise = require('../promise')
-var oddStorage = require('../../')(Promise)
+import * as oddStorage from '../../src'
 
-module.exports = function (opts) {
-  var StorageCls = oddStorage[opts.clsName]
+export default function (opts) {
+  let StorageCls = oddStorage[opts.clsName]
   if (StorageCls === undefined) {
     return
   }
 
-  var ndescribe = opts.describe || describe
+  let ndescribe = opts.describe || describe
   if (StorageCls.isAvailable() === false) {
     ndescribe = xdescribe
   }
 
-  ndescribe(opts.clsName, function () {
-    var storage
+  ndescribe(opts.clsName, () => {
+    let storage
 
-    beforeEach(function (done) {
+    beforeEach((done) => {
       storage = new StorageCls(opts.storageOpts)
       storage.open().then(done, done)
     })
 
-    afterEach(function (done) {
+    afterEach((done) => {
       storage.clear().then(done, done)
     })
 
-    it('inherits AbstractSync', function () {
+    it('inherits AbstractSync', () => {
       expect(storage).to.be.instanceof(oddStorage.AbstractSync)
     })
 
-    it('#set', function (done) {
-      storage.set('1', '1')
-        .then(function () {
-          return storage.get('1')
-        })
-        .then(function (result) {
-          expect(result).to.equal('1')
-          return storage.set('1', '2')
-        })
-        .then(function () {
-          return storage.get('1')
-        })
-        .then(function (result) {
-          expect(result).to.equal('2')
+    it('#set', (done) => {
+      Promise.resolve()
+        .then(async () => {
+          await storage.set('1', '1')
+          let value1 = await storage.get('1')
+          expect(value1).to.equal('1')
+
+          await storage.set('1', '2')
+          let value2 = await storage.get('1')
+          expect(value2).to.equal('2')
         })
         .then(done, done)
     })
 
-    it('#get', function (done) {
-      storage.get('1')
-        .then(function (result) {
-          expect(result).to.be.null
-          return storage.set('1', '3')
-        })
-        .then(function () {
-          return storage.get('1')
-        })
-        .then(function (result) {
-          expect(result).to.equal('3')
+    it('#get', (done) => {
+      Promise.resolve()
+        .then(async () => {
+          let value1 = await storage.get('1')
+          expect(value1).to.be.null
+
+          await storage.set('1', '3')
+          let value2 = await storage.get('1')
+          expect(value2).to.equal('3')
         })
         .then(done, done)
     })
 
-    it('#remove', function (done) {
-      storage.set('1', '4')
-        .then(function () {
-          return storage.get('1')
-        })
-        .then(function (result) {
-          expect(result).to.equal('4')
-          return storage.remove('1')
-        })
-        .then(function () {
-          return storage.get('1')
-        })
-        .then(function (result) {
-          expect(result).to.be.null
+    it('#iterate', (done) => {
+      Promise.resolve()
+        .then(async () => {
+          let obj = {'1': '4', '2': '5'}
+          let keys = Object.keys(obj)
+
+          await Promise.all(keys.map((key) => {
+            return storage.set(key, obj[key])
+          }))
+
+          await storage.iterate((key, value) => {
+            expect(value).to.equal(obj[key])
+
+            let idx = keys.indexOf(key)
+            if (idx !== -1) {
+              keys.splice(idx, 1)
+            }
+          })
+
+          expect(keys).to.deep.equal([])
         })
         .then(done, done)
     })
 
-    it('#iterate', function (done) {
-      var obj = {'1': '5', '2': '6'}
-      var keys = Object.keys(obj)
-      Promise.all(keys.map(function (key) {
-        return storage.set(key, obj[key])
-      }))
-      .then(function () {
-        return storage.iterate(function (key, value) {
-          expect(value).to.equal(obj[key])
+    it('#remove', (done) => {
+      Promise.resolve()
+        .then(async () => {
+          await storage.set('1', '6')
+          let value1 = await storage.get('1')
+          expect(value1).to.equal('6')
 
-          var index = keys.indexOf(key)
-          if (index !== -1) {
-            keys.splice(index, 1)
-          }
+          await storage.remove('1')
+          let value2 = await storage.get('1')
+          expect(value2).to.be.null
         })
-      })
-      .then(function () {
-        expect(keys).to.deep.equal([])
-      })
-      .then(done, done)
+        .then(done, done)
     })
   })
 }

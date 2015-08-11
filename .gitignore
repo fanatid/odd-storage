@@ -1,8 +1,7 @@
 coverage
+lib
 node_modules
 
-odd-storage.js
-odd-storage.test.js
 npm-debug.log
 
 test/config/postgresql.json
