@@ -38,14 +38,20 @@ export default class MemoryStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @param {AbstractSyncStorage~iterateCallback} callback
-   * @return {Promise}
+   * @return {Promise.<Object>}
    */
-  async iterate (callback) {
+  async entries () {
     this._isOpenedCheck()
-    for (let key of Object.keys(this._data)) {
-      await callback(key, this._data[key])
-    }
+
+    let data = this._data
+    return (function *() {
+      for (let key of Object.keys(data)) {
+        let value = data[key]
+        if (value !== undefined) {
+          yield [key, value]
+        }
+      }
+    })()
   }
 
   /**

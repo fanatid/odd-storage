@@ -41,8 +41,11 @@ describe('AbstractSync', () => {
       })
   })
 
-  it('#iterate', (done) => {
-    storage.iterate()
+  it('#entries', (done) => {
+    Promise.resolve()
+      .then(async () => {
+        for (let entry of await storage.entries()) { return entry }
+      })
       .then(() => { throw new Error() })
       .catch((err) => {
         expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)

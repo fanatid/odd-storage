@@ -120,10 +120,9 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
   }
 
   /**
-   * @param {AbstractSyncStorage~iterateCallback} callback
-   * @return {Promise}
+   * @return {Promise.<Object>}
    */
-  async iterate (callback) {
+  async entries () {
     this._isOpenedCheck()
 
     let rows = await new Promise((resolve, reject) => {
@@ -147,9 +146,11 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
       }
     })
 
-    for (let row of rows) {
-      await callback(row.key, row.value)
-    }
+    return (function *() {
+      for (let row of rows) {
+        yield [row.key, row.value]
+      }
+    })()
   }
 
   /**

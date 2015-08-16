@@ -25,18 +25,10 @@ export default class AbstractSyncStorage extends AbstractStorage {
   }
 
   /**
-   * @callback AbstractSyncStorage~iterateCallback
-   * @param {string} key
-   * @param {string} value
+   * @return {Promise.<Object>}
    */
-
-  /**
-   * @abstract
-   * @param {AbstractSyncStorage~iterateCallback} callback
-   * @return {Promise}
-   */
-  async iterate () {
-    throw new errors.NotImplemented(this.constructor.name + '.iterate')
+  async entries () {
+    throw new errors.NotImplemented(this.constructor.name + '.entries')
   }
 
   /**

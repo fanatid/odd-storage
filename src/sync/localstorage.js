@@ -61,10 +61,9 @@ export default class LocalStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @param {AbstractSyncStorage~iterateCallback} callback
-   * @return {Promise}
+   * @return {Promise.<Object>}
    */
-  async iterate (callback) {
+  async entries () {
     this._isOpenedCheck()
 
     let prefixLength = this._prefix.length
@@ -77,11 +76,14 @@ export default class LocalStorage extends AbstractSyncStorage {
       }
     }
 
-    for (let fkey of keys) {
-      let key = fkey.substring(prefixLength)
-      let value = global.localStorage.getItem(fkey)
-      await callback(key, value)
-    }
+    return (function *() {
+      for (let fkey of keys) {
+        let value = global.localStorage.getItem(fkey)
+        if (value !== null) {
+          yield [fkey.substring(prefixLength), value]
+        }
+      }
+    })()
   }
 
   /**

@@ -56,7 +56,7 @@ export default function (opts) {
         .then(done, done)
     })
 
-    it('#iterate', (done) => {
+    it('#entries', (done) => {
       Promise.resolve()
         .then(async () => {
           let obj = {'1': '4', '2': '5'}
@@ -66,14 +66,14 @@ export default function (opts) {
             return storage.set(key, obj[key])
           }))
 
-          await storage.iterate((key, value) => {
+          for (let [key, value] of await storage.entries()) {
             expect(value).to.equal(obj[key])
 
             let idx = keys.indexOf(key)
             if (idx !== -1) {
               keys.splice(idx, 1)
             }
-          })
+          }
 
           expect(keys).to.deep.equal([])
         })
