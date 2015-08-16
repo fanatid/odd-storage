@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import * as oddStorage from '../../src'
+import oddStorage from '../../src'
 
 var SQL = {}
 

@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import * as oddStorage from '../../src'
+import oddStorage from '../../src'
 
 export default function (opts) {
   let StorageCls = oddStorage[opts.clsName]
