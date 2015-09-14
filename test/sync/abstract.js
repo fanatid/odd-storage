@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import oddStorage from '../../src'
 
 describe('AbstractSync', () => {
-  var storage
+  let storage
 
   beforeEach(() => {
     storage = new oddStorage.AbstractSync()
@@ -14,51 +14,48 @@ describe('AbstractSync', () => {
     expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
-  it('#set', (done) => {
-    storage.set()
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#set', async () => {
+    try {
+      await storage.set()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 
-  it('#get', (done) => {
-    storage.get()
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#get', async () => {
+    try {
+      await storage.get()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 
-  it('#remove', (done) => {
-    storage.remove()
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#remove', async () => {
+    try {
+      await storage.remove()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 
-  it('#entries', (done) => {
-    Promise.resolve()
-      .then(async () => {
-        for (let entry of await storage.entries()) { return entry }
-      })
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#entries', async () => {
+    try {
+      await storage.entries()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 
-  it('#clear', (done) => {
-    storage.clear()
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#clear', async () => {
+    try {
+      await storage.clear()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 })

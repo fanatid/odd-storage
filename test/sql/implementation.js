@@ -2,7 +2,7 @@ import { expect } from 'chai'
 
 import oddStorage from '../../src'
 
-var SQL = {}
+let SQL = {}
 
 SQL['SQLite'] = SQL['WebSQL'] = {
   create: 'CREATE TABLE tmp ( ' +
@@ -39,29 +39,25 @@ export default function (opts) {
     let storage
     let sql = SQL[opts.clsName]
 
-    beforeEach((done) => {
+    beforeEach(() => {
       storage = new StorageCls(opts.storageOpts)
-      storage.open().then(done, done)
+      return storage.open()
     })
 
     it('inherits AbstractSQL', () => {
       expect(storage).to.be.instanceof(oddStorage.AbstractSQL)
     })
 
-    it('#executeSQL', (done) => {
-      Promise.resolve()
-        .then(async () => {
-          await storage.executeSQL(sql.create)
-          await storage.executeSQL(sql.insert, ['test', 1])
+    it('#executeSQL', async () => {
+      await storage.executeSQL(sql.create)
+      await storage.executeSQL(sql.insert, ['test', 1])
 
-          let rows = await storage.executeSQL(sql.select, ['test'])
-          expect(rows).to.be.an('Array').and.to.have.length(1)
-          expect(rows[0]).to.have.property('key', 'test')
-          expect(rows[0]).to.have.property('val', 1)
+      let rows = await storage.executeSQL(sql.select, ['test'])
+      expect(rows).to.be.an('Array').and.to.have.length(1)
+      expect(rows[0]).to.have.property('key', 'test')
+      expect(rows[0]).to.have.property('val', 1)
 
-          await storage.executeSQL(sql.drop)
-        })
-        .then(done, done)
+      await storage.executeSQL(sql.drop)
     })
   })
 }

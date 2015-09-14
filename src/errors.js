@@ -5,7 +5,7 @@
  *       +-- UnopenedYet
  */
 
-var spec = {
+let spec = {
   name: 'OddStorageError',
   message: 'Internal Error',
   errors: [{

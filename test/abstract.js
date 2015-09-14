@@ -17,35 +17,31 @@ describe('Abstract', () => {
     expect(storage.isReady()).to.be.false
   })
 
-  it('#open', (done) => {
-    storage.open()
-      .then(() => { throw new Error() })
-      .catch((err) => {
-        expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-        done()
-      })
+  it('#open', async () => {
+    try {
+      await storage.open()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
   })
 
   it('#_isOpenedCheck', () => {
     expect(::storage._isOpenedCheck).to.throw(oddStorage.errors.UnopenedYet)
   })
 
-  it('#withLock', (done) => {
+  it('#withLock', async () => {
     storage._ready()
-    storage.ready.then(() => {
-      var flag = false
+    await storage.ready
 
-      storage.withLock(() => {
-        return new Promise((resolve) => {
-          setTimeout(resolve, 50)
-        })
-        .then(() => { flag = true })
-      })
+    let counter = 0
+    await storage.withLock(async () => {
+      await new Promise((resolve) => { setTimeout(resolve, 50) })
+      counter += 1
+    })
 
-      storage.withLock(() => {
-        expect(flag).to.be.true
-        done()
-      })
+    await storage.withLock(() => {
+      expect(counter).to.equal(1)
     })
   })
 })
