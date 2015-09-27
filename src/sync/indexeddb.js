@@ -49,7 +49,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
         resolve()
       }
     })
-    .then(() => { this._ready() }, (err) => {
+    .then(() => { this._ready(null) }, (err) => {
       this._ready(err)
       throw err
     })

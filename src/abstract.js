@@ -1,10 +1,7 @@
-import initMakeConcurrent from 'make-concurrent'
-import initReadyMixin from 'ready-mixin'
+import makeConcurrent from 'make-concurrent'
+import readyMixin from 'ready-mixin'
 
 import errors from './errors'
-
-var makeConcurrent = initMakeConcurrent(Promise)
-var ReadyMixin = initReadyMixin(Promise)
 
 /**
  * @class AbstractStorage
@@ -45,4 +42,4 @@ export default class AbstractStorage {
   }, {concurrency: 1})
 }
 
-ReadyMixin(AbstractStorage.prototype)
+readyMixin(AbstractStorage.prototype)

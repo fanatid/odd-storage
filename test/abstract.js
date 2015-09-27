@@ -31,7 +31,7 @@ describe('Abstract', () => {
   })
 
   it('#withLock', async () => {
-    storage._ready()
+    storage._ready(null)
     await storage.ready
 
     let counter = 0

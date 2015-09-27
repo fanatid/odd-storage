@@ -66,7 +66,7 @@ export default class PostgreSQLStorage extends AbstractSQLStorage {
    */
   open () {
     return this._query('SELECT * FROM information_schema.tables')
-      .then(() => { this._ready() }, (err) => {
+      .then(() => { this._ready(null) }, (err) => {
         this._ready(err)
         throw err
       })

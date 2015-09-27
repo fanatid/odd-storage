@@ -15,7 +15,7 @@ export default class MemoryStorage extends AbstractSyncStorage {
    */
   async open () {
     this._data = {}
-    this._ready()
+    this._ready(null)
   }
 
   /**

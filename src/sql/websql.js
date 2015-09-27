@@ -36,7 +36,7 @@ export default class WebSQLStorage extends AbstractSQLStorage {
         this._db = global.openDatabase(
           this._dbName, '1.0', this._dbName, this._dbSize)
       })
-      .then(() => { this._ready() }, (err) => {
+      .then(() => { this._ready(null) }, (err) => {
         this._ready(err)
         throw err
       })

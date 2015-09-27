@@ -34,7 +34,7 @@ export default class SQLiteStorage extends AbstractSQLStorage {
         resolve()
       })
     })
-    .then(() => { this._ready() }, (err) => {
+    .then(() => { this._ready(null) }, (err) => {
       this._ready(err)
       throw err
     })

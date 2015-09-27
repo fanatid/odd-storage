@@ -35,7 +35,7 @@ export default class LocalStorage extends AbstractSyncStorage {
         global.localStorage.setItem('odd-storage-test', 'yes')
         global.localStorage.removeItem('odd-storage-test')
       })
-      .then(() => { this._ready() }, (err) => {
+      .then(() => { this._ready(null) }, (err) => {
         this._ready(err)
         throw err
       })
