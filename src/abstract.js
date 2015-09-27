@@ -39,7 +39,7 @@ export default class AbstractStorage {
    * @param {function} fn
    * @return {Promise}
    */
-  withLock = makeConcurrent(function (fn) {
+  withLock = makeConcurrent((fn) => {
     this._isOpenedCheck()
     return fn()
   }, {concurrency: 1})

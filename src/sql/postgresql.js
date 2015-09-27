@@ -27,10 +27,22 @@ export default class PostgreSQLStorage extends AbstractSQLStorage {
   /**
    * @param {string} sql
    * @param {Array.<*>} args
+   * @param {Object} [opts]
+   * @param {pg.Client} [opts.client]
    * @return {Promise.<Array>}
    */
-  _query (sql, args) {
+  _query (sql, args, opts) {
     return new Promise((resolve, reject) => {
+      if (Object(opts).client !== undefined) {
+        return opts.client.query(sql, args, (err, ret) => {
+          if (err !== null) {
+            return reject(err)
+          }
+
+          resolve(ret.rows)
+        })
+      }
+
       this._pg.connect(this._url, (err, client, done) => {
         if (err !== null) {
           return reject(err)
@@ -63,10 +75,12 @@ export default class PostgreSQLStorage extends AbstractSQLStorage {
   /**
    * @param {string} sql
    * @param {Array.<*>} args
+   * @param {Object} [opts]
+   * @param {pg.Client} [opts.client]
    * @return {Promise.<Array>}
    */
-  async executeSQL (sql, args) {
+  async executeSQL (sql, args, opts) {
     this._isOpenedCheck()
-    return this._query(sql, args)
+    return this._query(sql, args, opts)
   }
 }

@@ -10,6 +10,7 @@ export default class AbstractSQLStorage extends AbstractStorage {
    * @abstract
    * @param {string} sql
    * @param {Array.<*>} args
+   * @param {Object} [opts]
    * @return {Promise.<Array>}
    */
   async executeSQL () {
