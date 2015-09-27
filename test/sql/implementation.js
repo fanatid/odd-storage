@@ -5,23 +5,23 @@ import oddStorage from '../../src'
 let SQL = {}
 
 SQL['SQLite'] = SQL['WebSQL'] = {
-  create: 'CREATE TABLE tmp ( ' +
-          '  id INTEGER PRIMARY KEY AUTOINCREMENT, ' +
-          '  key TEXT, ' +
-          '  val INTEGER);',
-  insert: 'INSERT INTO tmp (key, val) VALUES ($1, $2)',
-  select: 'SELECT * FROM tmp WHERE key = $1',
-  drop: 'DROP TABLE tmp;'
+  create: `CREATE TABLE tmp (
+             id INTEGER PRIMARY KEY AUTOINCREMENT,
+             key TEXT,
+             val INTEGER)`,
+  insert: `INSERT INTO tmp (key, val) VALUES ($1, $2)`,
+  select: `SELECT * FROM tmp WHERE key = $1`,
+  drop: `DROP TABLE tmp`
 }
 
 SQL['PostgreSQL'] = {
-  create: 'CREATE TABLE tmp ( ' +
-          '  id SERIAL PRIMARY KEY, ' +
-          '  key TEXT, ' +
-          '  val INTEGER);',
-  insert: 'INSERT INTO tmp (key, val) VALUES ($1, $2)',
-  select: 'SELECT * FROM tmp WHERE key = $1',
-  drop: 'DROP TABLE tmp;'
+  create: `CREATE TABLE tmp (
+             id SERIAL PRIMARY KEY,
+             key TEXT,
+             val INTEGER)`,
+  insert: `INSERT INTO tmp (key, val) VALUES ($1, $2)`,
+  select: `SELECT * FROM tmp WHERE key = $1`,
+  drop: `DROP TABLE tmp`
 }
 
 export default function (opts) {
