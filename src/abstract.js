@@ -1,5 +1,6 @@
 import makeConcurrent from 'make-concurrent'
-import readyMixin from 'ready-mixin'
+import { mixin } from 'core-decorators'
+import ReadyMixin from 'ready-mixin'
 
 import errors from './errors'
 
@@ -7,6 +8,7 @@ import errors from './errors'
  * @class AbstractStorage
  * @mixes ReadyMixin
  */
+@mixin(ReadyMixin)
 export default class AbstractStorage {
   /**
    * @return {boolean}
@@ -36,10 +38,9 @@ export default class AbstractStorage {
    * @param {function} fn
    * @return {Promise}
    */
-  withLock = makeConcurrent((fn) => {
+  @makeConcurrent({concurrency: 1})
+  withLock (fn) {
     this._isOpenedCheck()
     return fn()
-  }, {concurrency: 1})
+  }
 }
-
-readyMixin(AbstractStorage.prototype)
