@@ -1,6 +1,5 @@
-import isFunction from 'lodash.isfunction'
-
 import AbstractSyncStorage from './abstract'
+import { isFunction } from '../util'
 
 /**
  * @class LocalStorage

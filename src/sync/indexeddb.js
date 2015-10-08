@@ -1,6 +1,5 @@
-import isFunction from 'lodash.isfunction'
-
 import AbstractSyncStorage from './abstract'
+import { isFunction } from '../util'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory/open
 var indexedDB = (global.indexedDB ||

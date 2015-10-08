@@ -1,6 +1,5 @@
-import isFunction from 'lodash.isfunction'
-
 import AbstractSQLStorage from './abstract'
+import { isFunction } from '../util'
 
 /**
  * @class WebSQLStorage
