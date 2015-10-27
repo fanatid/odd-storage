@@ -1,5 +1,3 @@
-import sqlite3 from 'sqlite3'
-
 import AbstractSQLStorage from './abstract'
 
 /**
@@ -19,13 +17,21 @@ export default class SQLiteStorage extends AbstractSQLStorage {
   /**
    * @return {boolean}
    */
-  static isAvailable () { return true }
+  static isAvailable () {
+    try {
+      require('sqlite3')
+      return true
+    } catch (err) {
+      return false
+    }
+  }
 
   /**
    * @return {Promise}
    */
   open () {
     return new Promise((resolve, reject) => {
+      let sqlite3 = require('sqlite3')
       this._db = new sqlite3.Database(this._filename, (err) => {
         if (err !== null) {
           return reject(err)

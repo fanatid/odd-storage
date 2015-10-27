@@ -1,5 +1,4 @@
 import AbstractSyncStorage from './abstract'
-import { isFunction } from '../util'
 
 // https://developer.mozilla.org/en-US/docs/Web/API/IDBFactory/open
 var indexedDB = (global.indexedDB ||
@@ -25,7 +24,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
    * @return {boolean}
    */
   static isAvailable () {
-    return (typeof indexedDB === 'object' && isFunction(indexedDB.open))
+    return (typeof indexedDB === 'object' && typeof indexedDB.open === 'function')
   }
 
   /**

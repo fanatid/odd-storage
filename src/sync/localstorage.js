@@ -1,5 +1,4 @@
 import AbstractSyncStorage from './abstract'
-import { isFunction } from '../util'
 
 /**
  * @class LocalStorage
@@ -20,9 +19,9 @@ export default class LocalStorage extends AbstractSyncStorage {
    */
   static isAvailable () {
     return (typeof global.localStorage === 'object' &&
-            isFunction(global.localStorage.getItem) &&
-            isFunction(global.localStorage.setItem) &&
-            isFunction(global.localStorage.clear))
+            typeof global.localStorage.getItem === 'function' &&
+            typeof global.localStorage.setItem === 'function' &&
+            typeof global.localStorage.clear === 'function')
   }
 
   /**

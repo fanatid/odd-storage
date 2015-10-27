@@ -1,5 +1,3 @@
-import pg from 'pg'
-
 import AbstractSQLStorage from './abstract'
 
 /**
@@ -16,13 +14,20 @@ export default class PostgreSQLStorage extends AbstractSQLStorage {
     super()
 
     this._url = Object(opts).url
-    this._pg = Object(opts).native === true ? pg.native : pg
+    this._useNative = !!Object(opts).native
   }
 
   /**
    * @return {boolean}
    */
-  static isAvailable () { return true }
+  static isAvailable () {
+    try {
+      require('pg')
+      return true
+    } catch (err) {
+      return false
+    }
+  }
 
   /**
    * @param {string} sql
@@ -65,7 +70,12 @@ export default class PostgreSQLStorage extends AbstractSQLStorage {
    * @return {Promise}
    */
   open () {
-    return this._query('SELECT * FROM information_schema.tables')
+    return Promise.resolve()
+      .then(() => {
+        let pg = require('pg')
+        this._pg = this._useNative ? pg.native : pg
+        return this._query('SELECT * FROM information_schema.tables')
+      })
       .then(() => { this._ready(null) }, (err) => {
         this._ready(err)
         throw err

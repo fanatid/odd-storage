@@ -1,5 +1,4 @@
 import AbstractSQLStorage from './abstract'
-import { isFunction } from '../util'
 
 /**
  * @class WebSQLStorage
@@ -24,7 +23,7 @@ export default class WebSQLStorage extends AbstractSQLStorage {
   /**
    * @return {boolean}
    */
-  static isAvailable () { return isFunction(global.openDatabase) }
+  static isAvailable () { return global.openDatabase === 'function' }
 
   /**
    * @return {Promise}

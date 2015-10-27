@@ -1,6 +1,6 @@
 {
   "name": "odd-storage",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "node.js and browser storage",
   "keywords": [
     "storage",
@@ -47,9 +47,7 @@
     "core-decorators": "^0.8.1",
     "error-system": "^1.0.0",
     "make-concurrent": "^1.1.1",
-    "pg": "^4.4.3",
-    "ready-mixin": "^2.0.0",
-    "sqlite3": "^3.0.8"
+    "ready-mixin": "^2.0.0"
   },
   "devDependencies": {
     "babel": "^5.8.21",
@@ -68,7 +66,9 @@
     "karma-detect-browsers": "^2.0.2",
     "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.2.0",
-    "mocha": "^2.2.5"
+    "mocha": "^2.2.5",
+    "pg": "^4.4.3",
+    "sqlite3": "^3.0.8"
   },
   "browser": {
     "./lib/index.js": "./lib/index-browser.js",
