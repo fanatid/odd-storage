@@ -59,7 +59,7 @@ export default class LocalStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Object>}
+   * @return {Promise.<Generator>}
    */
   async entries () {
     this._isOpenedCheck()
@@ -78,7 +78,7 @@ export default class LocalStorage extends AbstractSyncStorage {
       for (let fkey of keys) {
         let value = global.localStorage.getItem(fkey)
         if (value !== null) {
-          yield [fkey.substring(prefixLength), value]
+          yield {key: fkey.substring(prefixLength), value: value}
         }
       }
     })()

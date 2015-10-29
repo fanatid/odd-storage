@@ -13,34 +13,30 @@ odd-storage is JavaScript library that has two interfaces ([sql](#abstractsql) a
 ## Example
 
 ```js
-var oddStorage = require('odd-storage')
-var storage = new oddStorage.LocalStorage({prefix: '...'})
+import oddStorage from 'odd-storage'
 
-$('#change-balance-btn').click(function () {
-  storage.withLock(function () {
-    var user = $('#change-balance-user')
-    var value = parseInt($('#change-balance-value').val(), 10)
+let storage = new oddStorage.LocalStorage({prefix: '...'})
+
+$('#change-balance-btn').click(() => {
+  storage.withLock(async () => {
+    let user = $('#change-balance-user')
+    let value = parseInt($('#change-balance-value').val(), 10)
     $('#change-balance-value').val('')
 
-    return request(..., {value: value})
-      .then(function (isAllow) {
-        if (!isAllow) {
-          return setTimeout(function () {
-            alert('Action forbidden for user: ' + user + ', value: ' + value)
-          }, 0)
-        }
+    let isAllow = await request(..., {value: value})
+    if (!isAllow) {
+      return setTimeout(() => {
+        alert(`Action forbidden for user: ${user}, value: ${value}`)
+      }, 0)
+    }
 
-        return storage.get(user)
-          .then(function (balance) {
-            var newBalance = (balance === null ? 0 : balance) + value
-            return storage.set(user, newBalance)
-          })
-          .then(function () {
-            setTimeout(function () {
-              alert('Balance changed for user: ' + user + ', new balance ' + balance)
-            }, 0)
-          })
-      })
+    let balance = await storage.get(user)
+    let newBalance = (balance === null ? 0 : balance) + value
+
+    await storage.set(user, newBalance)
+    setTimeout(() => {
+      alert(`Balance changed for user: ${user}, new balance: ${balance}`)
+    }, 0)
   })
 })
 ```
@@ -68,7 +64,7 @@ $('#change-balance-btn').click(function () {
       * [set](#set)
       * [get](#get)
       * [remove](#remove)
-      * [iterate](#iterate)
+      * [entries](#entries)
       * [clear](#clear)
     * Inheritance
       * [Memory](#memory)
@@ -123,13 +119,13 @@ Execute sql queries with arguments args.
 
 **return**: `Promise`
 
-#### iterate
+#### entries
 
-Iterate through whole collection. Call callback for every pair key, value.
+Generator with {key: key, value: value}
 
   * `string` callback
 
-**return**: `Promise`
+**return**: `Generator`
 
 #### clear
 

@@ -12,7 +12,7 @@ export default class AbstractSyncStorage extends AbstractStorage {
    * @return {Promise}
    */
   async set () {
-    throw new errors.NotImplemented(this.constructor.name + '.set')
+    throw new errors.NotImplemented(`${this.constructor.name}.set`)
   }
 
   /**
@@ -21,14 +21,14 @@ export default class AbstractSyncStorage extends AbstractStorage {
    * @return {Promise.<?string>}
    */
   async get () {
-    throw new errors.NotImplemented(this.constructor.name + '.get')
+    throw new errors.NotImplemented(`${this.constructor.name}.get`)
   }
 
   /**
-   * @return {Promise.<Object>}
+   * @return {Promise.<Generator>}
    */
   async entries () {
-    throw new errors.NotImplemented(this.constructor.name + '.entries')
+    throw new errors.NotImplemented(`${this.constructor.name}.entries`)
   }
 
   /**
@@ -37,7 +37,7 @@ export default class AbstractSyncStorage extends AbstractStorage {
    * @return {Promise}
    */
   async remove () {
-    throw new errors.NotImplemented(this.constructor.name + '.remove')
+    throw new errors.NotImplemented(`${this.constructor.name}.remove`)
   }
 
   /**
@@ -45,6 +45,6 @@ export default class AbstractSyncStorage extends AbstractStorage {
    * @return {Promise}
    */
   async clear () {
-    throw new errors.NotImplemented(this.constructor.name + '.clear')
+    throw new errors.NotImplemented(`${this.constructor.name}.clear`)
   }
 }

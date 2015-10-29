@@ -118,7 +118,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Object>}
+   * @return {Promise.<Generator>}
    */
   async entries () {
     this._isOpenedCheck()
@@ -146,7 +146,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
 
     return (function *() {
       for (let row of rows) {
-        yield [row.key, row.value]
+        yield row
       }
     })()
   }

@@ -14,6 +14,6 @@ export default class AbstractSQLStorage extends AbstractStorage {
    * @return {Promise.<Array>}
    */
   async executeSQL () {
-    throw new errors.NotImplemented(this.constructor.name + '.executeSQL')
+    throw new errors.NotImplemented(`${this.constructor.name}.executeSQL`)
   }
 }

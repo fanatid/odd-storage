@@ -38,7 +38,7 @@ export default class MemoryStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Object>}
+   * @return {Promise.<Generator>}
    */
   async entries () {
     this._isOpenedCheck()
@@ -48,7 +48,7 @@ export default class MemoryStorage extends AbstractSyncStorage {
       for (let key of Object.keys(data)) {
         let value = data[key]
         if (value !== undefined) {
-          yield [key, value]
+          yield {key: key, value: value}
         }
       }
     })()

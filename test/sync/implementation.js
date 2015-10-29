@@ -56,7 +56,7 @@ export default function (opts) {
         return storage.set(key, obj[key])
       }))
 
-      for (let [key, value] of await storage.entries()) {
+      for (let {key, value} of await storage.entries()) {
         expect(value).to.equal(obj[key])
 
         let idx = keys.indexOf(key)

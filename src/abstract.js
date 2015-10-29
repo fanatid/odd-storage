@@ -22,7 +22,7 @@ export default class AbstractStorage {
    * @return {Promise}
    */
   async open () {
-    throw new errors.NotImplemented(this.constructor.name + '.open')
+    throw new errors.NotImplemented(`${this.constructor.name}.open`)
   }
 
   /**
