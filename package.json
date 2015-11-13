@@ -70,6 +70,9 @@
     "pg": "^4.4.3",
     "sqlite3": "^3.0.8"
   },
+  "engines": {
+    "node": ">0.10"
+  },
   "browser": {
     "./lib/index.js": "./lib/index-browser.js",
     "./src/index.js": "./src/index-browser.js"
