@@ -37,7 +37,7 @@
     "coverage": "find test/ -type f -name \"*.js\" | xargs istanbul cover _mocha -- --compilers js:babel/register",
     "coveralls": "npm run coverage && coveralls <coverage/lcov.info",
     "clean": "rm -rf lib/*",
-    "lint": "eslint src test",
+    "lint": "standard",
     "test": "npm run test:node && npm run test:browser",
     "test:browser": "karma start karma.conf.js",
     "test:node": "find test/ -type f -name \"*.js\" | xargs istanbul test mocha -- --compilers js:babel/register --reporter spec"
@@ -56,9 +56,6 @@
     "babelify": "^6.4.0",
     "chai": "^3.4.0",
     "coveralls": "^2.11.3",
-    "eslint": "^1.7.3",
-    "eslint-config-standard": "^4.0.0",
-    "eslint-plugin-standard": "^1.2.0",
     "istanbul": "^0.4.0",
     "karma": "^0.13.14",
     "karma-browserify": "^4.4.0",
@@ -68,7 +65,8 @@
     "karma-mocha": "^0.2.0",
     "mocha": "^2.2.5",
     "pg": "^4.4.3",
-    "sqlite3": "^3.0.8"
+    "sqlite3": "^3.0.8",
+    "standard": "^5.3.1"
   },
   "engines": {
     "node": ">0.10"
@@ -76,5 +74,15 @@
   "browser": {
     "./lib/index.js": "./lib/index-browser.js",
     "./src/index.js": "./src/index-browser.js"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "xdescribe",
+      "beforeEach",
+      "afterEach",
+      "it"
+    ],
+    "parser": "babel-eslint"
   }
 }
