@@ -1,11 +1,7 @@
-import { randomBytes } from 'crypto'
-
-import runImplementationTest from './implementation'
-
-runImplementationTest({
+require('./implementation')({
   describe: describe,
   clsName: 'IndexedDB',
   storageOpts: {
-    prefix: randomBytes(10).toString('hex')
+    prefix: require('crypto').randomBytes(10).toString('hex')
   }
 })

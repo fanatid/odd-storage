@@ -17,13 +17,8 @@ describe('Abstract', () => {
     expect(storage.isReady()).to.be.false
   })
 
-  it('#open', async () => {
-    try {
-      await storage.open()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+  it('#open', () => {
+    return expect(storage.open()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#_isOpenedCheck', () => {
@@ -36,7 +31,7 @@ describe('Abstract', () => {
 
     let counter = 0
     await storage.withLock(async () => {
-      await new Promise((resolve) => { setTimeout(resolve, 50) })
+      await new Promise(resolve => setTimeout(resolve, 50))
       counter += 1
     })
 

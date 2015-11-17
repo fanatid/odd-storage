@@ -14,57 +14,27 @@ describe('AbstractSync', () => {
     expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
-  it('#set', async () => {
-    try {
-      await storage.set()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+  it('#set', () => {
+    return expect(storage.set()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#get', async () => {
-    try {
-      await storage.get()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+    return expect(storage.get()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#remove', async () => {
-    try {
-      await storage.remove()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+    return expect(storage.remove()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#keys', async () => {
-    try {
-      await storage.keys()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+    return expect(storage.keys()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#entries', async () => {
-    try {
-      await storage.entries()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+    return expect(storage.entries()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
   it('#clear', async () => {
-    try {
-      await storage.clear()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+    return expect(storage.clear()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 })

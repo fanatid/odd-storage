@@ -52,9 +52,7 @@ export default function (opts) {
       let obj = {'1': '4', '2': '5'}
       let keys = Object.keys(obj)
 
-      await Promise.all(keys.map((key) => {
-        return storage.set(key, obj[key])
-      }))
+      await* keys.map(key => storage.set(key, obj[key]))
 
       for (let key of await storage.keys()) {
         let idx = keys.indexOf(key)
@@ -70,9 +68,7 @@ export default function (opts) {
       let obj = {'1': '4', '2': '5'}
       let keys = Object.keys(obj)
 
-      await Promise.all(keys.map((key) => {
-        return storage.set(key, obj[key])
-      }))
+      await* keys.map(key => storage.set(key, obj[key]))
 
       for (let {key, value} of await storage.entries()) {
         expect(value).to.equal(obj[key])

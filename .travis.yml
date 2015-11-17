@@ -6,7 +6,6 @@ node_js:
   - 4
   - 5
 addons:
-  firefox: latest
   postgresql: 9.4
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres

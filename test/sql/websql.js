@@ -1,11 +1,7 @@
-import { randomBytes } from 'crypto'
-
-import runImplementationTest from './implementation'
-
-runImplementationTest({
+require('./implementation')({
   describe: describe,
   clsName: 'WebSQL',
   storageOpts: {
-    dbName: randomBytes(10).toString('hex')
+    dbName: require('crypto').randomBytes(10).toString('hex')
   }
 })

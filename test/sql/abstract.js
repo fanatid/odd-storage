@@ -14,12 +14,7 @@ describe('AbstractSQL', () => {
     expect(storage).to.be.instanceof(oddStorage.Abstract)
   })
 
-  it('#executeSQL', async () => {
-    try {
-      await storage.executeSQL()
-      throw new Error()
-    } catch (err) {
-      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
-    }
+  it('#executeSQL', () => {
+    return expect(storage.executeSQL()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 })
