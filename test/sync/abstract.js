@@ -41,6 +41,15 @@ describe('AbstractSync', () => {
     }
   })
 
+  it('#keys', async () => {
+    try {
+      await storage.keys()
+      throw new Error()
+    } catch (err) {
+      expect(err).to.be.instanceof(oddStorage.errors.NotImplemented)
+    }
+  })
+
   it('#entries', async () => {
     try {
       await storage.entries()

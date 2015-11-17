@@ -48,6 +48,24 @@ export default function (opts) {
       expect(value2).to.equal('3')
     })
 
+    it('#keys', async () => {
+      let obj = {'1': '4', '2': '5'}
+      let keys = Object.keys(obj)
+
+      await Promise.all(keys.map((key) => {
+        return storage.set(key, obj[key])
+      }))
+
+      for (let key of await storage.keys()) {
+        let idx = keys.indexOf(key)
+        if (idx !== -1) {
+          keys.splice(idx, 1)
+        }
+      }
+
+      expect(keys).to.deep.equal([])
+    })
+
     it('#entries', async () => {
       let obj = {'1': '4', '2': '5'}
       let keys = Object.keys(obj)

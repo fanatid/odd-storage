@@ -40,6 +40,20 @@ export default class MemoryStorage extends AbstractSyncStorage {
   /**
    * @return {Promise.<Generator>}
    */
+  async keys () {
+    this._isOpenedCheck()
+
+    let data = this._data
+    return (function *() {
+      for (let key of Object.keys(data)) {
+        yield key
+      }
+    })()
+  }
+
+  /**
+   * @return {Promise.<Generator>}
+   */
   async entries () {
     this._isOpenedCheck()
 

@@ -96,25 +96,37 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
   }
 
   /**
-   * @param {string} key
-   * @return {Promise}
+   * @return {Promise.<Generator>}
    */
-  async remove (key) {
+  async keys () {
     this._isOpenedCheck()
 
-    await new Promise((resolve, reject) => {
-      let tx = this._db.transaction(this._dbName, 'readwrite')
-      let req = tx.objectStore(this._dbName).delete(String(key))
+    let keys = await new Promise((resolve, reject) => {
+      let tx = this._db.transaction(this._dbName, 'readonly')
+      let req = tx.objectStore(this._dbName).openCursor()
 
-      tx.oncomplete = () => {
-        resolve()
+      let keys = []
+      req.onsuccess = () => {
+        let cursor = req.result
+
+        if (cursor === null) {
+          return resolve(keys)
+        }
+
+        keys.push(cursor.key)
+        cursor.continue()
       }
 
-      tx.onabort = tx.onerror = () => {
-        let err = req.error ? req.error : req.transaction.error
-        reject(err)
+      req.onerror = () => {
+        reject(req.error)
       }
     })
+
+    return (function *() {
+      for (let key of keys) {
+        yield key
+      }
+    })()
   }
 
   /**
@@ -149,6 +161,28 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
         yield row
       }
     })()
+  }
+
+  /**
+   * @param {string} key
+   * @return {Promise}
+   */
+  async remove (key) {
+    this._isOpenedCheck()
+
+    await new Promise((resolve, reject) => {
+      let tx = this._db.transaction(this._dbName, 'readwrite')
+      let req = tx.objectStore(this._dbName).delete(String(key))
+
+      tx.oncomplete = () => {
+        resolve()
+      }
+
+      tx.onabort = tx.onerror = () => {
+        let err = req.error ? req.error : req.transaction.error
+        reject(err)
+      }
+    })
   }
 
   /**

@@ -64,6 +64,7 @@ $('#change-balance-btn').click(() => {
       * [set](#set)
       * [get](#get)
       * [remove](#remove)
+      * [keys](#keys)
       * [entries](#entries)
       * [clear](#clear)
     * Inheritance
@@ -119,11 +120,15 @@ Execute sql queries with arguments args.
 
 **return**: `Promise`
 
+#### keys
+
+Generator with `string`
+
+**return**: `Generator`
+
 #### entries
 
-Generator with {key: key, value: value}
-
-  * `string` callback
+Generator with `{key: string, value: string}`
 
 **return**: `Generator`
 

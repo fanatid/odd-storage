@@ -27,6 +27,13 @@ export default class AbstractSyncStorage extends AbstractStorage {
   /**
    * @return {Promise.<Generator>}
    */
+  async keys () {
+    throw new errors.NotImplemented(`${this.constructor.name}.keys`)
+  }
+
+  /**
+   * @return {Promise.<Generator>}
+   */
   async entries () {
     throw new errors.NotImplemented(`${this.constructor.name}.entries`)
   }
