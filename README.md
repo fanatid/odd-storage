@@ -1,12 +1,10 @@
 # odd-storage
 
-[![build status](https://img.shields.io/travis/fanatid/odd-storage.svg?branch=master&style=flat-square)](http://travis-ci.org/fanatid/odd-storage)
+[![NPM Package](https://img.shields.io/npm/v/odd-storage.svg?style=flat-square)](https://www.npmjs.org/package/odd-storage)
+[![Build Status](https://img.shields.io/travis/fanatid/odd-storage.svg?branch=master&style=flat-square)](https://travis-ci.org/fanatid/odd-storage)
 [![Coverage Status](https://img.shields.io/coveralls/fanatid/odd-storage.svg?style=flat-square)](https://coveralls.io/r/fanatid/odd-storage)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/feross/standard)
 [![Dependency status](https://img.shields.io/david/fanatid/odd-storage.svg?style=flat-square)](https://david-dm.org/fanatid/odd-storage#info=dependencies)
-[![Dev Dependency status](https://img.shields.io/david/fanatid/odd-storage.svg?style=flat-square)](https://david-dm.org/fanatid/odd-storage#info=devDependencies)
-
-[![NPM](https://nodei.co/npm/odd-storage.png)](https://www.npmjs.com/package/odd-storage)
-[![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
 odd-storage is JavaScript library that has two interfaces ([sql](#abstractsql) and [sync](#abstractsync)) for store data in node.js and browsers.
 
