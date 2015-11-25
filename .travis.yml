@@ -1,12 +1,13 @@
 sudo: false
 language: node_js
 node_js:
-  - 0.10
-  - 0.12
-  - 4
-  - 5
+  - "0.10"
+  - "0.12"
+  - "4"
+  - "5"
 addons:
-  postgresql: 9.4
+  firefox: latest
+  postgresql: "9.4"
 before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - cp test/config/postgresql.json.travis test/config/postgresql.json
@@ -18,8 +19,8 @@ env:
     - TEST_SUITE=test
 matrix:
   include:
-    - node_js: 4
+    - node_js: "4"
       env: TEST_SUITE=coverage
-    - node_js: 4
+    - node_js: "4"
       env: TEST_SUITE=lint
 script: npm run $TEST_SUITE

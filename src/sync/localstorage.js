@@ -59,52 +59,24 @@ export default class LocalStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Generator>}
-   */
-  async keys () {
-    this._isOpenedCheck()
-
-    let prefixLength = this._prefix.length
-
-    let keys = []
-    for (let i = 0; i < global.localStorage.length; i += 1) {
-      let key = global.localStorage.key(i)
-      if (key !== null && key.substring(0, prefixLength) === this._prefix) {
-        keys.push(key.substring(prefixLength))
-      }
-    }
-
-    return (function *() {
-      for (let key of keys) {
-        yield key
-      }
-    })()
-  }
-
-  /**
-   * @return {Promise.<Generator>}
+   * @return {Promise.<Iterable.<{key: string, value: string}>>}
    */
   async entries () {
     this._isOpenedCheck()
 
     let prefixLength = this._prefix.length
-
-    let keys = []
-    for (let i = 0; i < global.localStorage.length; i += 1) {
+    let rows = []
+    for (let i = 0; i < global.localStorage.length; ++i) {
       let key = global.localStorage.key(i)
-      if (key !== null && key.substring(0, prefixLength) === this._prefix) {
-        keys.push(key)
+      if (key.substring(0, prefixLength) === this._prefix) {
+        let value = global.localStorage.getItem(key)
+        if (value !== null) {
+          rows.push({key: key.substring(prefixLength), value: value})
+        }
       }
     }
 
-    return (function *() {
-      for (let fkey of keys) {
-        let value = global.localStorage.getItem(fkey)
-        if (value !== null) {
-          yield {key: fkey.substring(prefixLength), value: value}
-        }
-      }
-    })()
+    return rows.values()
   }
 
   /**

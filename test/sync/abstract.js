@@ -26,10 +26,6 @@ describe('AbstractSync', () => {
     return expect(storage.remove()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })
 
-  it('#keys', async () => {
-    return expect(storage.keys()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
-  })
-
   it('#entries', async () => {
     return expect(storage.entries()).to.be.rejectedWith(oddStorage.errors.NotImplemented)
   })

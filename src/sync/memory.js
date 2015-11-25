@@ -38,34 +38,18 @@ export default class MemoryStorage extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Generator>}
-   */
-  async keys () {
-    this._isOpenedCheck()
-
-    let data = this._data
-    return (function *() {
-      for (let key of Object.keys(data)) {
-        yield key
-      }
-    })()
-  }
-
-  /**
-   * @return {Promise.<Generator>}
+   * @return {Promise.<Iterable.<{key: string, value: string}>>}
    */
   async entries () {
     this._isOpenedCheck()
 
-    let data = this._data
-    return (function *() {
-      for (let key of Object.keys(data)) {
-        let value = data[key]
-        if (value !== undefined) {
-          yield {key: key, value: value}
-        }
-      }
-    })()
+    let keys = Object.keys(this._data)
+    let rows = new Array(keys.length)
+    for (let i = 0; i < rows.length; ++i) {
+      rows[i] = {key: keys[i], value: this._data[keys[i]]}
+    }
+
+    return rows.values()
   }
 
   /**

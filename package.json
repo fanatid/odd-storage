@@ -1,6 +1,6 @@
 {
   "name": "odd-storage",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "node.js and browser storage",
   "keywords": [
     "storage",

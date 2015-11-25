@@ -96,41 +96,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
   }
 
   /**
-   * @return {Promise.<Generator>}
-   */
-  async keys () {
-    this._isOpenedCheck()
-
-    let keys = await new Promise((resolve, reject) => {
-      let tx = this._db.transaction(this._dbName, 'readonly')
-      let req = tx.objectStore(this._dbName).openCursor()
-
-      let keys = []
-      req.onsuccess = () => {
-        let cursor = req.result
-
-        if (!cursor) {
-          return resolve(keys)
-        }
-
-        keys.push(cursor.key)
-        cursor.continue()
-      }
-
-      req.onerror = () => {
-        reject(req.error)
-      }
-    })
-
-    return (function *() {
-      for (let key of keys) {
-        yield key
-      }
-    })()
-  }
-
-  /**
-   * @return {Promise.<Generator>}
+   * @return {Promise.<Iterable.<{key: string, value: string}>>}
    */
   async entries () {
     this._isOpenedCheck()
@@ -156,11 +122,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
       }
     })
 
-    return (function *() {
-      for (let row of rows) {
-        yield row
-      }
-    })()
+    return rows.values()
   }
 
   /**
