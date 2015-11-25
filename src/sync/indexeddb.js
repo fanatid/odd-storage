@@ -109,7 +109,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
       req.onsuccess = () => {
         let cursor = req.result
 
-        if (cursor === null) {
+        if (!cursor) {
           return resolve(keys)
         }
 
@@ -143,7 +143,7 @@ export default class IndexedDBStorag extends AbstractSyncStorage {
       req.onsuccess = () => {
         let cursor = req.result
 
-        if (cursor === null) {
+        if (!cursor) {
           return resolve(rows)
         }
 

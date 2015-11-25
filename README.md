@@ -143,4 +143,4 @@ Generator with `{key: string, value: string}`
 
 ## License
 
-Code released under [the MIT license](LICENSE).
+This software is licensed under the MIT License.
